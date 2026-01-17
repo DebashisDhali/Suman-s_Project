@@ -4,7 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 
@@ -13,20 +13,42 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Ensure uploads directory exists
+// Ensure uploads directory exists (use /tmp on Vercel if needed, or skip)
 const fs = require('fs');
 const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir);
+if (process.env.NODE_ENV !== 'production' && !fs.existsSync(uploadsDir)) {
+  try {
+    fs.mkdirSync(uploadsDir);
+  } catch (err) {
+    console.warn('❌ Could not create uploads directory:', err.message);
+  }
 }
 
 // Serve uploaded images
 app.use('/uploads', express.static(uploadsDir));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/charpathaliya-plants')
-.then(() => console.log('✅ MongoDB Connected Successfully'))
-.catch((err) => console.error('❌ MongoDB Connection Error:', err));
+const mongoURI = process.env.MONGODB_URI;
+
+if (!mongoURI && process.env.NODE_ENV === 'production') {
+  console.error('❌ MONGODB_URI is not defined in Environment Variables!');
+}
+
+const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+
+  try {
+    await mongoose.connect(mongoURI || 'mongodb://localhost:27017/charpathaliya-plants', {
+      serverSelectionTimeoutMS: 5000,
+    });
+    console.log('✅ MongoDB Connected Successfully');
+  } catch (err) {
+    console.error('❌ MongoDB Connection Error:', err);
+  }
+};
+
+// Connect to Database
+connectDB();
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));

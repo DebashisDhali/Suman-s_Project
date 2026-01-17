@@ -10,6 +10,7 @@ const PlantGallery = () => {
     const { t, i18n } = useTranslation();
     const [plants, setPlants] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [filters, setFilters] = useState({
         habit: 'all',
         family: 'all',
@@ -21,8 +22,11 @@ const PlantGallery = () => {
     const habits = ['all', 'Herb', 'Shrub', 'Tree', 'Aquatic', 'Grass', 'Climber'];
 
     useEffect(() => {
-        fetchPlants();
-    }, [filters, pagination.page]);
+        const timer = setTimeout(() => {
+            fetchPlants();
+        }, 300); // Small debounce to prevent too many requests while typing search
+        return () => clearTimeout(timer);
+    }, [filters.habit, filters.family, filters.search, pagination.page]);
 
     useEffect(() => {
         fetchFamilies();
@@ -30,6 +34,7 @@ const PlantGallery = () => {
 
     const fetchPlants = async () => {
         setLoading(true);
+        setError(null);
         try {
             const params = {
                 page: pagination.page,
@@ -41,12 +46,17 @@ const PlantGallery = () => {
             if (filters.search) params.search = filters.search;
 
             const response = await plantAPI.getAll(params);
-            setPlants(response.data.plants);
-            setPagination(response.data.pagination);
+            if (response.data.success) {
+                setPlants(response.data.plants);
+                setPagination(response.data.pagination);
+            } else {
+                throw new Error(response.data.message || 'Failed to fetch plants');
+            }
         } catch (error) {
             console.error('Error fetching plants:', error);
+            setError(error.message || 'Could not connect to server. Please try again.');
         } finally {
-            setTimeout(() => setLoading(false), 500); // Smooth transition
+            setLoading(false);
         }
     };
 
@@ -67,7 +77,7 @@ const PlantGallery = () => {
     const handleSearch = (e) => {
         e.preventDefault();
         setPagination({ ...pagination, page: 1 });
-        fetchPlants();
+        // fetchPlants() is not needed here as the useEffect with pagination.page dependency will catch it
     };
 
     const containerVariants = {
@@ -190,6 +200,27 @@ const PlantGallery = () => {
                                             <div className="mt-auto skeleton h-10 w-full" />
                                         </div>
                                     ))}
+                                </motion.div>
+                            ) : error ? (
+                                <motion.div
+                                    key="error"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="h-[50vh] flex flex-col items-center justify-center text-center p-8 bg-red-50 rounded-[3rem] border border-red-100"
+                                >
+                                    <div className="w-20 md:w-24 h-20 md:h-24 bg-white rounded-full flex items-center justify-center text-5xl shadow-xl mb-8">
+                                        ⚠️
+                                    </div>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-red-800 mb-4 font-serif">Something went wrong</h3>
+                                    <p className="text-red-600 max-w-sm font-light text-sm md:text-base leading-relaxed mb-8">
+                                        {error}
+                                    </p>
+                                    <button
+                                        onClick={fetchPlants}
+                                        className="btn-primary bg-red-800 hover:bg-red-900 border-none px-10"
+                                    >
+                                        Try Again
+                                    </button>
                                 </motion.div>
                             ) : plants.length === 0 ? (
                                 <motion.div
