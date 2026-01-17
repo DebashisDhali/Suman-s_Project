@@ -34,6 +34,10 @@ if (!mongoURI && process.env.NODE_ENV === 'production') {
   console.error('❌ MONGODB_URI is not defined in Environment Variables!');
 }
 
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+  console.error('❌ JWT_SECRET is not defined in Environment Variables!');
+}
+
 const connectDB = async () => {
   if (mongoose.connection.readyState >= 1) return;
 
