@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { plantAPI } from '../utils/api';
 import { useTranslation } from 'react-i18next';
+import gstuCampus from '../assets/gstu-campus.jpg';
 
 const Home = () => {
     const { t, i18n } = useTranslation();
@@ -45,27 +46,22 @@ const Home = () => {
 
             {/* Hero Section */}
             <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
-                {/* Decorative Elements */}
+                {/* Background Image */}
                 <div className="absolute inset-0 z-0">
-                    <motion.div
-                        animate={{
-                            x: [0, 50, 0],
-                            y: [0, 30, 0],
-                            rotate: [0, 10, 0]
-                        }}
-                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute -top-20 -right-20 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-primary-100/30 rounded-full blur-[60px] md:blur-[100px]"
+                    <img
+                        src={gstuCampus}
+                        alt="GSTU Campus"
+                        className="w-full h-full object-cover"
                     />
-                    <motion.div
-                        animate={{
-                            x: [0, -30, 0],
-                            y: [0, 50, 0]
-                        }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute bottom-0 -left-20 w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-earth-100/40 rounded-full blur-[50px] md:blur-[80px]"
-                    />
-                    <div className="absolute top-1/4 left-10 opacity-[0.03] select-none pointer-events-none hidden lg:block">
-                        <span className="text-[200px] font-serif font-black italic">{t('hero_bg_text')}</span>
+                    {/* Gradient Overlay for Readability */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#FCFAF7]/40 via-[#FCFAF7]/60 to-[#FCFAF7]"></div>
+                    <div className="absolute inset-0 bg-[#FFFFFF]/30 mix-blend-overlay"></div>
+                </div>
+
+                {/* Decorative Elements (Kept subtle behind content but above bg) */}
+                <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                    <div className="absolute top-1/4 left-10 opacity-[0.03] select-none text-[200px] font-serif font-black italic hidden lg:block">
+                        {t('hero_bg_text')}
                     </div>
                 </div>
 
