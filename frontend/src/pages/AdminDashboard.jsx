@@ -163,12 +163,16 @@ const AdminDashboard = () => {
         setImagePreview(null);
     };
 
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
+
     const handleLogout = () => {
-        const isLoggingOut = window.confirm(t('terminate_session'));
-        if (isLoggingOut) {
-            localStorage.removeItem('adminToken');
-            navigate('/');
-        }
+        setShowLogoutModal(true);
+    };
+
+    const confirmLogout = () => {
+        localStorage.removeItem('adminToken');
+        setShowLogoutModal(false);
+        navigate('/');
     };
 
     return (
@@ -570,6 +574,56 @@ const AdminDashboard = () => {
                                         className="order-1 sm:order-2 flex-1 py-3 md:py-4 px-6 bg-red-500 text-white rounded-xl md:rounded-2xl font-bold hover:bg-red-600 transition-all shadow-lg shadow-red-500/20"
                                     >
                                         {t('confirm_delete')}
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Custom Logout Modal */}
+            <AnimatePresence>
+                {showLogoutModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-[#0A1A0F]/60 backdrop-blur-md flex items-center justify-center z-[1000] p-4"
+                        onClick={() => setShowLogoutModal(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.9, y: 20, opacity: 0 }}
+                            className="bg-white rounded-[2.5rem] shadow-2xl max-w-sm w-full overflow-hidden relative"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="p-10 text-center relative z-10">
+                                <div className="w-20 h-20 bg-red-50 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-sm">
+                                    🚪
+                                </div>
+                                <h3 className="text-2xl font-bold text-[#1B4332] font-serif mb-3 tracking-tight">
+                                    {t('terminate_session')}
+                                </h3>
+                                <p className="text-[#525C52] text-sm leading-relaxed mb-10 font-light italic">
+                                    {i18n.language === 'bn'
+                                        ? 'আপনি কি নিশ্চিত যে আপনার বর্তমান সেশনটি শেষ করতে চান?'
+                                        : 'Are you sure you want to end your current administrative session?'}
+                                </p>
+
+                                <div className="flex flex-col gap-3">
+                                    <button
+                                        onClick={confirmLogout}
+                                        className="w-full py-4 px-6 bg-[#1B4332] text-white rounded-2xl font-bold hover:bg-black transition-all shadow-xl shadow-[#1B4332]/20 active:scale-[0.98]"
+                                    >
+                                        {i18n.language === 'bn' ? 'হ্যাঁ, লগআউট করুন' : 'Yes, Log Out'}
+                                    </button>
+                                    <button
+                                        onClick={() => setShowLogoutModal(false)}
+                                        className="w-full py-4 px-6 border border-[#EDF1ED] rounded-2xl font-bold text-[#525C52] hover:bg-[#F5F8F5] transition-all active:scale-[0.98]"
+                                    >
+                                        {i18n.language === 'bn' ? 'না, ফিরে যান' : 'Stay Signed In'}
                                     </button>
                                 </div>
                             </div>
