@@ -86,8 +86,8 @@ const Home = () => {
                         <motion.h1
                             variants={itemVariants}
                             className={`mb-8 font-serif ${i18n.language === 'bn'
-                                ? 'text-4xl md:text-6xl lg:text-7xl leading-[1.2] md:leading-tight'
-                                : 'text-4xl md:text-7xl lg:text-8xl display-title uppercase tracking-tighter'}`}
+                                ? 'text-2xl md:text-4xl lg:text-5xl leading-[1.2] md:leading-tight'
+                                : 'text-3xl md:text-5xl lg:text-6xl display-title uppercase tracking-tighter'}`}
                         >
                             {t('hero_title')}
                             <br className="hidden sm:block" />
@@ -111,9 +111,9 @@ const Home = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </Link>
-                            <a href="#about" className="btn-secondary w-full sm:min-w-[200px] py-4">
+                            <Link to="/project-details" className="btn-secondary w-full sm:min-w-[200px] py-4 text-center">
                                 {t('project_details')}
-                            </a>
+                            </Link>
                         </motion.div>
 
                         {/* Quick Stats Overlay */}

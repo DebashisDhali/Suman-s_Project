@@ -24,8 +24,8 @@ i18n
 
           // Home
           hero_badge: 'Discover Nature\'s Pharmacy',
-          hero_title: 'Medicinal & Aquatic',
-          hero_title_accent: 'Plant Database',
+          hero_title: 'Documentation and Digital database of plant diversity in',
+          hero_title_accent: 'Gopalganj Science & Technology University (GSTU Campus)',
           hero_subtitle: 'A world-class digital repository documenting the intricate beauty and healing properties of medicinal and aquatic species.',
           browse_collections: 'Browse Collections',
           project_details: 'Project Details',
@@ -174,8 +174,8 @@ i18n
 
           // Home
           hero_badge: 'প্রকৃতির ফার্মেসি আবিষ্কার করুন',
-          hero_title: 'ঔষধি ও জলজ',
-          hero_title_accent: 'উদ্ভিদ ডেটাবেস',
+          hero_title: 'গোপালগঞ্জ বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ে (জিএসটিইউ ক্যাম্পাস)',
+          hero_title_accent: 'উদ্ভিদ বৈচিত্র্যের নথিপত্র এবং ডিজিটাল ডেটাবেস',
           hero_subtitle: 'ঔষধি এবং জলজ প্রজাতির জটিল সৌন্দর্য এবং নিরাময় বৈশিষ্ট্য নথিভুক্ত করার জন্য একটি বিশ্বমানের ডিজিটাল ভাণ্ডার।',
           browse_collections: 'সংগ্রহ ব্রাউজ করুন',
           project_details: 'প্রকল্পের বিশদ',

@@ -6,6 +6,7 @@ import './index.css';
 import Home from './pages/Home';
 import PlantGallery from './pages/PlantGallery';
 import PlantDetails from './pages/PlantDetails';
+import ProjectDetails from './pages/ProjectDetails';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import PrivateRoute from './components/PrivateRoute';
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/plants" element={<PlantGallery />} />
           <Route path="/plants/:id" element={<PlantDetails />} />
+          <Route path="/project-details" element={<ProjectDetails />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
             path="/admin/dashboard"
