@@ -39,7 +39,7 @@ router.post('/plants', authMiddleware, upload.single('image'), async (req, res) 
 
     // Add image path if uploaded
     if (req.file) {
-      plantData.image = `/uploads/${req.file.filename}`;
+      plantData.image = req.file.path; // This will be the Cloudinary URL
     }
 
     const plant = new Plant(plantData);
@@ -98,14 +98,16 @@ router.put('/plants/:id', authMiddleware, upload.single('image'), async (req, re
 
     // Update image if new one uploaded
     if (req.file) {
-      // Delete old image if exists
-      if (plant.image) {
+      // Delete old image if it was local
+      if (plant.image && plant.image.startsWith('/uploads')) {
         const oldImagePath = path.join(__dirname, '..', plant.image);
         if (fs.existsSync(oldImagePath)) {
           fs.unlinkSync(oldImagePath);
         }
       }
-      plant.image = `/uploads/${req.file.filename}`;
+      // If it's Cloudinary, you could optionally delete it here too using plant.image (URL to public_id conversion needed)
+      
+      plant.image = req.file.path;
     }
 
     await plant.save();
@@ -139,8 +141,8 @@ router.delete('/plants/:id', authMiddleware, async (req, res) => {
       });
     }
 
-    // Delete image file if exists
-    if (plant.image) {
+    // Delete image file if it was local
+    if (plant.image && plant.image.startsWith('/uploads')) {
       const imagePath = path.join(__dirname, '..', plant.image);
       if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);

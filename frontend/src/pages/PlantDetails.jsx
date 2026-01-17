@@ -95,7 +95,7 @@ const PlantDetails = () => {
                             <div className="aspect-[4/5] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl bg-[#F5F8F5] border-4 md:border-8 border-white">
                                 {plant.image ? (
                                     <img
-                                        src={`${BASE_URL}${plant.image}`}
+                                        src={plant.image?.startsWith('http') ? plant.image : `${BASE_URL}${plant.image}`}
                                         alt={plant.localName}
                                         className="w-full h-full object-cover reveal-img"
                                     />

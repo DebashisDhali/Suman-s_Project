@@ -235,7 +235,7 @@ const PlantGallery = () => {
                                                     <div className="relative aspect-[4/5] rounded-[1.5rem] overflow-hidden mb-5">
                                                         {plant.image ? (
                                                             <img
-                                                                src={`${BASE_URL}${plant.image}`}
+                                                                src={plant.image?.startsWith('http') ? plant.image : `${BASE_URL}${plant.image}`}
                                                                 alt={plant.localName}
                                                                 className="w-full h-full object-cover reveal-img transition-transform duration-700 group-hover:scale-110"
                                                             />

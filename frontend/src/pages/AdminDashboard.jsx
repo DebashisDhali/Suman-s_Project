@@ -124,7 +124,7 @@ const AdminDashboard = () => {
             mapLink: plant.mapLink || '',
             image: null,
         });
-        setImagePreview(`${BASE_URL}${plant.image}`);
+        setImagePreview(plant.image?.startsWith('http') ? plant.image : `${BASE_URL}${plant.image}`);
         setShowModal(true);
     };
 
@@ -290,7 +290,7 @@ const AdminDashboard = () => {
                                                         <div className="w-12 md:w-16 h-12 md:h-16 rounded-xl md:rounded-2xl overflow-hidden shadow-sm border border-[#EDF1ED]">
                                                             {plant.image ? (
                                                                 <img
-                                                                    src={`${BASE_URL}${plant.image}`}
+                                                                    src={plant.image?.startsWith('http') ? plant.image : `${BASE_URL}${plant.image}`}
                                                                     alt={plant.localName}
                                                                     className="w-full h-full object-cover"
                                                                 />
