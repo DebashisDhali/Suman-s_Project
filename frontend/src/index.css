@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+@config "../tailwind.config.js";
+
+@layer base {
+  body {
+    @apply bg-[#FCFAF7] min-h-screen font-sans text-[#2D332D] selection:bg-primary-200 selection:text-primary-900;
+    background-image: radial-gradient(at 0% 0%, hsla(142, 70%, 95%, 1) 0, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(35, 40%, 95%, 1) 0, transparent 50%);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/40 transition-all duration-300;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  }
+
+  .btn-primary {
+    @apply bg-[#1B4332] text-white px-6 md:px-8 py-3 md:py-3.5 rounded-full font-semibold hover:-translate-y-1 transform transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base;
+    box-shadow: 0 10px 20px -5px rgba(27, 67, 50, 0.3);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 15px 25px -5px rgba(27, 67, 50, 0.4);
+  }
+
+  .btn-secondary {
+    @apply bg-white/80 backdrop-blur-sm text-[#1B4332] border border-[#1B4332]/10 px-6 md:px-8 py-3 md:py-3.5 rounded-full font-semibold hover:bg-white hover:border-[#1B4332]/30 hover:shadow-lg hover:-translate-y-1 transform transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-[#EDF1ED] transition-all duration-500 overflow-hidden;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .card:hover {
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-2;
+  }
+
+  .display-title {
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold text-[#1B4332] leading-[1.1] md:leading-[1] tracking-tighter;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold text-[#1B4332] mb-4 md:mb-6 leading-[1.2];
+  }
+
+  .section-subtitle {
+    @apply text-sm md:text-base lg:text-lg text-[#525C52] max-w-3xl font-light leading-relaxed;
+  }
+
+  .input-field {
+    @apply w-full px-4 md:px-5 py-3 md:py-3.5 bg-white border border-[#E0E7E0] rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 outline-none transition-all duration-300 shadow-sm font-sans text-sm md:text-base;
+  }
+
+  .label {
+    @apply block text-xs md:text-sm font-bold text-[#404940] mb-2 uppercase tracking-wider;
+  }
+
+  .nav-link {
+    @apply relative text-[#404940] font-medium hover:text-[#1B4332] transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute -bottom-1 left-0 w-0 h-0.5 bg-[#1B4332] transition-all duration-300 rounded-full;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .active-nav-link {
+    @apply text-[#1B4332];
+  }
+
+  .active-nav-link::after {
+    @apply w-full;
+  }
+
+  /* Responsive Utils */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#F5F8F5];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#B7C4B7] rounded-full hover:bg-[#8BA18B] transition-colors;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading animation premium */
+.loader {
+  @apply w-10 md:w-12 h-10 md:h-12 border-4 border-[#EDF1ED] rounded-full relative;
+  border-top-color: #1B4332;
+  animation: spin 1s cubic-bezier(0.76, 0.35, 0.2, 0.7) infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Skeleton loading premium */
+.skeleton {
+  @apply animate-pulse bg-gradient-to-r from-[#F0F4F0] via-[#FBFDFA] to-[#F0F4F0] bg-[length:200%_100%] rounded-xl;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Image reveal animation */
+.reveal-img {
+  animation: reveal 1s ease-out forwards;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .section-title {
+    @apply text-[1.75rem] leading-[1.3];
+  }
+}
