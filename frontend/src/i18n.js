@@ -143,7 +143,7 @@ i18n
           detailed_botanical_description: 'Detailed Botanical Description',
           medicinal_benefits: 'Medicinal Benefits (One per line)',
           botanical_illustration: 'Botanical Illustration / Photograph',
-          select_file: 'Select File',
+          select_file: 'Select File or Paste (Ctrl+V)',
           
           end_documentation: 'End Documentation?',
           remove_warning: 'You are about to permanently remove "{{name}}" from the archives. This action is irreversible.',
@@ -293,7 +293,7 @@ i18n
           detailed_botanical_description: 'বিস্তারিত উদ্ভিদতাত্ত্বিক বর্ণনা',
           medicinal_benefits: 'ঔষধি উপকারিতা (প্রতি লাইনে একটি)',
           botanical_illustration: 'উদ্ভিদতাত্ত্বিক চিত্র / ছবি',
-          select_file: 'ফাইল নির্বাচন করুন',
+          select_file: 'ফাইল বা ছবি পেস্ট করুন (Ctrl+V)',
           
           end_documentation: 'নথিপত্র শেষ করবেন?',
           remove_warning: 'আপনি আারি এখান থেকে "{{name}}" স্থায়ীভাবে মুছে ফেলতে চলেছেন। এই কাজটি অপরিবর্তনীয়।',

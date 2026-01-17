@@ -39,6 +39,28 @@ const AdminDashboard = () => {
         loadInitialData();
     }, []);
 
+    useEffect(() => {
+        const handlePaste = (e) => {
+            if (!showModal) return;
+
+            const items = e.clipboardData.items;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                    const file = items[i].getAsFile();
+                    if (file) {
+                        setFormData(prev => ({ ...prev, image: file }));
+                        setImagePreview(URL.createObjectURL(file));
+                        e.preventDefault();
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('paste', handlePaste);
+        return () => window.removeEventListener('paste', handlePaste);
+    }, [showModal]);
+
     const fetchDashboardData = async () => {
         try {
             const response = await adminAPI.getDashboard();
