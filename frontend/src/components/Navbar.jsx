@@ -18,7 +18,7 @@ const Navbar = () => {
     const navLinks = [
         { path: '/', label: t('home') },
         { path: '/plants', label: t('gallery') },
-        { path: '/project-details', label: t('project_details') },
+        // { path: '/project-details', label: t('project_details') },
     ];
 
     if (isAdmin) {

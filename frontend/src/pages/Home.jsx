@@ -107,9 +107,9 @@ const Home = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </Link>
-                            <Link to="/project-details" className="btn-secondary w-full sm:min-w-[200px] py-4 text-center">
+                            {/* <Link to="/project-details" className="btn-secondary w-full sm:min-w-[200px] py-4 text-center">
                                 {t('project_details')}
-                            </Link>
+                            </Link> */}
                         </motion.div>
 
                         {/* Quick Stats Overlay */}
